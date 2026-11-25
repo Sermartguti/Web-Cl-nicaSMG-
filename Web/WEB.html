@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="es" data-theme="dark">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Clínica SMG – Intranet de la clínica</title>
+<link rel="stylesheet" href="https://googleapis.com">
+<style>
+:root{
+  --bg:#07122b;
+  --solid:#0c1c3d;
+  --surf:rgba(18,36,76,.55);
+  --text:#e8f0ff;
+  --muted:#9bb0d8;
+  --pri:#38bdf8;
+  --pri-t:#04152e;
+  --pri2:#818cf8;
+  --acc:rgba(56,189,248,.12);
+  --line:rgba(130,170,255,.2);
+  --glow:rgba(56,189,248,.35);
+  color-scheme:dark;
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px);
+  padding-bottom:env(safe-area-inset-bottom,0px)
+}
+:root[data-theme="light"]{
+  --bg:#eef4ff;
+  --solid:#fff;
+  --surf:rgba(255,255,255,.8);
+  --text:#0a1b3f;
+  --muted:#4a5d86;
+  --pri:#0b6fd1;
+  --pri-t:#fff;
+  --pri2:#5b4ce0;
+  --acc:rgba(11,111,209,.09);
+  --line:rgba(20,60,150,.16);
+  --glow:rgba(11,111,209,.3);
+  color-scheme:light
+}
+html{scroll-padding-top:env(safe-area-inset-top,0px);scroll-behavior:smooth}
+*{box-sizing:border-box}
+body{
+  margin:0;
+  background:var(--bg);
+  color:var(--text);
+  font:16px/1.6 'IBM Plex Sans', system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);background:var(--surf);z-index:10}
+h1, h2, h3, .logo{font-family:'Sora', sans-serif}
+header{
+  position:sticky;
+  top:env(safe-area-inset-top,0px);
+  background:var(--surf);
+  backdrop-filter:blur(12px);
+  -webkit-backdrop-filter:blur(12px);
+  border-bottom:1px solid var(--line);
+  z-index:9
+}
+.bar,section,footer .in{max-width:1000px;margin:auto;padding:0 20px}
+.bar{display:flex;align-items:center;justify-content:space-between;height:60px;gap:12px}
+.logo{font-weight:700;font-size:1.2rem;color:var(--pri);text-decoration:none}
+nav{display:flex;align-items:center;gap:16px;overflow-x:auto}
+nav a{color:var(--text);text-decoration:none;font-size:.92rem;white-space:nowrap;transition:color .2s}
+nav a:hover{color:var(--pri)}
+.theme-btn{
+  background:var(--acc);
+  border:1px solid var(--line);
+  color:var(--pri);
+  padding:6px 12px;
+  border-radius:8px;
+  cursor:pointer;
+  font-family:'IBM Plex Mono', monospace;
+  font-size:.82rem;
+}
+.hero{
+  padding:64px 20px 48px;
+  text-align:center;
+  max-width:1000px;
+  margin:auto;
+  background:radial-gradient(ellipse at 50% 0%,var(--acc),transparent 70%)
+}
+.hero h1{
+  font-size:clamp(2rem, 4.5vw, 3rem);
+  line-height:1.15;
+  margin:0 0 16px;
+}
+.hero p{
+  color:var(--muted);
+  max-width:620px;
+  margin:0 auto 28px;
+  font-size:1.08rem;
+}
+.btn{
+  display:inline-block;
+  background:var(--pri);
+  color:var(--pri-t);
+  font-weight:600;
+  padding:12px 24px;
+  border-radius:10px;
+  text-decoration:none;
+  box-shadow:0 4px 20px var(--glow);
+  transition:transform .2s;
+}
+.btn:hover{transform:translateY(-2px)}
+
+/* Sección de Video Local */
+.video-section{
+  padding:48px 20px;
+  text-align:center;
+  border-top:1px solid var(--line);
+}
+.video-section h2{
+  font-size:1.65rem;
+  margin:0 0 8px;
+}
+.video-section p{
+  color:var(--muted);
+  max-width:560px;
+  margin:0 auto;
+}
+.video-card{
+  max-width:340px;
+  margin:28px auto 0;
+  background:var(--surf);
+  border:1px solid var(--line);
+  border-radius:18px;
+  padding:12px;
+  box-shadow:0 12px 32px rgba(0,0,0,.25);
+}
+.short-wrapper{
+  position:relative;
+  width:100%;
+  aspect-ratio:9 / 16;
+  border-radius:12px;
+  overflow:hidden;
+  background:#000;
+}
+.short-wrapper video{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  display:block;
+}
+
+/* Tarjetas de accesos rápidos de la intranet */
+.grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit, minmax(260px, 1fr));
+  gap:20px;
+  padding:32px 0 64px;
+}
+.card{
+  background:var(--surf);
+  border:1px solid var(--line);
+  border-radius:14px;
+  padding:24px;
+}
+.card h3{margin:0 0 8px;font-size:1.15rem;color:var(--pri)}
+.card p{margin:0;color:var(--muted);font-size:.95rem}
+
+footer{
+  border-top:1px solid var(--line);
+  padding:24px 0;
+  color:var(--muted);
+  font-size:.88rem;
+  text-align:center;
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="bar">
+    <a href="#" class="logo">Clínica SMG</a>
+    <nav>
+      <a href="#inicio">Inicio</a>
+      <a href="#video-informativo">Vídeo Clínica</a>
+      <a href="#recursos">Protocolos</a>
+      <button class="theme-btn" id="themeToggle" type="button">Tema</button>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <section class="hero" id="inicio">
+    <h1>Intranet de Clínica SMG</h1>
+    <p>Portal interno de comunicación, protocolos odontológicos y recursos audiovisuales para el equipo y sala de espera.</p>
+    <a href="#video-informativo" class="btn">Ver vídeo destacado</a>
+  </section>
+
+  <!-- Sección con tu vídeo MP4 local -->
+  <section class="video-section" id="video-informativo">
+    <h2>¿Cada cuánto te haces una limpieza dental?</h2>
+    <p>Material informativo sobre higiene bucal y mantenimiento periodontal según el tiempo transcurrido desde la última visita.</p>
+    
+    <div class="video-card">
+      <div class="short-wrapper">
+        <video controls playsinline preload="metadata">
+          <source src="limpieza.mp4" type="video/mp4">
+          Tu navegador no soporta la reproducción de vídeo HTML5.
+        </video>
+      </div>
+    </div>
+  </section>
+
+  <section id="recursos">
+    <div class="grid">
+      <div class="card">
+        <h3>Agenda y Citas</h3>
+        <p>Gestión diaria de gabinetes, revisiones semestrales y recordatorios de profilaxis dental.</p>
+      </div>
+      <div class="card">
+        <h3>Protocolos Clínicos</h3>
+        <p>Guías de esterilización, instrumental periodontal y atención personalizada al paciente.</p>
+      </div>
+      <div class="card">
+        <h3>Comunicación Interna</h3>
+        <p>Avisos del equipo médico, turnos y material educativo para compartir con pacientes.</p>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="in">
+    Clínica SMG · Intranet interna · Todos los derechos reservados
+  </div>
+</footer>
+
+<script>
+  const btn = document.getElementById('themeToggle');
+  const root = document.documentElement;
+  btn.addEventListener('click', () => {
+    const current = root.getAttribute('data-theme');
+    root.setAttribute('data-theme', current === 'dark' ? 'light' : 'dark');
+  });
+</script>
+
+</body>
+</html>
